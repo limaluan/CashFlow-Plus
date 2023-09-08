@@ -1,1 +1,58 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --black-800: #121214; // Background
+  --black-700: #202024; // Shape Principal
+  --black-600: #29292e; // Secondary Shape
+  --black-500: #323238; // Terciary Shape
+  --black-400: #7c7c8a; // Placeholder
+  --black-300: #c4c4cc; // Text Base
+  --black-200: #e1e1e6; // Titles
+
+  --iris-100: #5d5fef; // Links or Anchor Elements
+
+  --green-dark: #015f43;
+  --green: #00875f;
+  --green-light: #00b37e;
+
+  --red-dark: #aa2834;
+  --red: #f75a68;
+
+  --white: #fff;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  background-color: var(--black-800);
+  color: var(--white);
+  font-family: "Roboto", sans-serif;
+}
+
+button {
+  all: unset;
+  height: 56px;
+  border-radius: 6px;
+  cursor: pointer;
+
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+button[class~="primary"] {
+  background-color: var(--green);
+
+  &:hover {
+    transition: background 100ms;
+    background-color: var(--green-dark);
+  }
+}

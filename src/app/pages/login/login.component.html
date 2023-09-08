@@ -1,0 +1,47 @@
+<main>
+  <div class="text-section">
+    <img src="../../../assets/logo.svg" alt="CashFlow Plus" />
+    <h1>
+      Faça seu <span *ngIf="isLogin; else registerText">login</span> na
+      plataforma
+    </h1>
+    <ng-template #registerText>
+      <span>cadastro</span>
+    </ng-template>
+  </div>
+  <form>
+    <app-input
+      placeholder="E-mail"
+      icon="email"
+      name="email"
+      type="email"
+      (onChange)="handleChange($event)"
+      [isRequired]="true"
+    />
+    <app-input
+      placeholder="Senha"
+      name="password"
+      type="password"
+      icon="lock"
+      (onChange)="handleChange($event)"
+      [isRequired]="true"
+    />
+    <a href="#" *ngIf="isLogin" (click)="toggleIsLogin()"><p>Esqueci minha senha</p></a>
+
+    <button class="primary" *ngIf="isLogin; else registerButton">ENTRAR</button>
+    <ng-template #registerButton>
+      <button class="primary">CADASTRAR</button>
+    </ng-template>
+
+    <p *ngIf="isLogin; else loginText">
+      <span> Não tem uma conta? </span>
+      <a href="#" (click)="toggleIsLogin()">Registre-se</a>
+    </p>
+    <ng-template #loginText>
+      <p>
+        <span> Já possui conta? </span>
+        <a href="#" (click)="toggleIsLogin()">Faça Login</a>
+      </p>
+    </ng-template>
+  </form>
+</main>
