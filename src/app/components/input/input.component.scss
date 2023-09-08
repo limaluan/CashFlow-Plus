@@ -1,0 +1,21 @@
+div {
+  display: flex;
+  background-color: var(--black-800);
+  border-radius: 6px;
+  padding: 16px;
+
+  gap: 12px;
+}
+
+i {
+  color: var(--black-400);
+}
+
+input {
+  all: unset;
+  font-size: 1.6rem;
+
+  &::placeholder {
+    color: var(--black-400);
+  }
+}
