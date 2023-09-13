@@ -15,18 +15,20 @@
       icon="email"
       name="email"
       type="email"
-      (onChange)="handleChange($event)"
       [isRequired]="true"
+      [(ngModel)]="email"
     />
     <app-input
       placeholder="Senha"
       name="password"
       type="password"
       icon="lock"
-      (onChange)="handleChange($event)"
       [isRequired]="true"
+      [(ngModel)]="password"
     />
-    <a href="#" *ngIf="isLogin" (click)="toggleIsLogin()"><p>Esqueci minha senha</p></a>
+    <a href="#" *ngIf="isLogin" (click)="toggleIsLogin()"
+      ><p>Esqueci minha senha</p></a
+    >
 
     <button class="primary" *ngIf="isLogin; else registerButton">ENTRAR</button>
     <ng-template #registerButton>

@@ -37,6 +37,10 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+img {
+  -webkit-user-drag: none;
+}
+
 button {
   all: unset;
   height: 56px;

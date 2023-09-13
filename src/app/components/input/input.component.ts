@@ -1,4 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface IInputEventProps {
   value: string;
@@ -9,19 +14,51 @@ export interface IInputEventProps {
   selector: 'app-input',
   templateUrl: './input.component.html',
   styleUrls: ['./input.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: InputComponent,
+    }
+  ]
 })
-export class InputComponent {
+export class InputComponent implements ControlValueAccessor {
   @Input() placeholder?: string = '';
   @Input() icon: string | undefined;
   @Input() type: 'text' | 'number' | 'email' | 'password' = 'text';
   @Input() name!: string;
   @Input() isRequired: boolean = false;
+  @Input() isReadOnly = false;
 
-  value: string = '';
+  private innerValue: string = '';
 
-  @Output() onChange: EventEmitter<IInputEventProps> = new EventEmitter();
+  get value() {
+    return this.innerValue;
+  }
 
-  handleChange() {
-    return this.onChange.emit({ value: this.value, inputName: this.name });
+  set value(v: string) {
+    if (v !== this.innerValue) {
+      this.innerValue = v;
+      this.onChangeCb(v);
+    }
+  }
+
+  constructor() {}
+
+  onChangeCb: (_: any) => void = () => {};
+  onTouchCb: (_: any) => void = () => {};
+
+  writeValue(v: any): void {
+    this.value = v;
+  }
+  registerOnChange(fn: any): void {
+    this.onChangeCb = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouchCb = fn;
+  }
+  setDisabledState?(isDisabled: boolean): void {
+    this.isReadOnly = isDisabled;
   }
 }
