@@ -13,11 +13,10 @@
     <app-input
       *ngIf="!isLogin"
       placeholder="Nome"
-      name="confirmPassword"
-      type="password"
+      name="name"
+      type="text"
       icon="person"
-      [ngClass]="{'input-error': isLogin}"
-      [ngClass]="{'input-error': email.invalid}"
+      formControlName="name"
     />
     <app-input
       placeholder="E-mail"
@@ -25,7 +24,6 @@
       name="email"
       type="email"
       formControlName="email"
-      [ngClass]="{'input-error': email.invalid}"
     />
     <app-input
       placeholder="Senha"
@@ -33,7 +31,6 @@
       type="password"
       icon="lock"
       formControlName="password"
-      [ngClass]="{'input-error': email.invalid}"
     />
     <app-input
       *ngIf="!isLogin"
@@ -41,8 +38,7 @@
       name="confirmPassword"
       type="password"
       icon="lock"
-      [ngClass]="{'input-error': isLogin}"
-      [ngClass]="{'input-error': email.invalid}"
+      formControlName="confirmPassword"
     />
     <!-- <a href="#" *ngIf="isLogin" (click)="toggleIsLogin()"
       ><p>Esqueci minha senha</p></a

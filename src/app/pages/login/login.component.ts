@@ -20,18 +20,24 @@ export class LoginComponent {
 
   isLogin: boolean = true;
 
-  toggleIsLogin() {
-    this.isLogin = !this.isLogin;
-  }
-
   ngOnInit() {
     this.titleService.setTitle('Login - CashFlow');
 
     this.loginForm = new FormGroup({
+      name: new FormControl('', [Validators.required]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required]),
       confirmPassword: new FormControl('', [Validators.required]),
     });
+  }
+
+  toggleIsLogin() {
+    this.isLogin = !this.isLogin;
+    this.loginForm.reset();
+  }
+
+  get name() {
+    return this.loginForm.get('name')!;
   }
 
   get email() {
@@ -62,10 +68,59 @@ export class LoginComponent {
           }
         );
     } else {
-      this.authService.register({
-        email: this.email.value,
-        password: this.password.value,
-      });
+      if (this.name.invalid || this.name.value.length < 2) {
+        this.toastr.error(
+          'Por favor, verifique e tente novamente.',
+          'Nome inválido'
+        );
+
+        return;
+      } else if (this.email.invalid) {
+        this.toastr.error(
+          'Por favor, verifique e tente novamente.',
+          'Email inválido'
+        );
+
+        return;
+      } else if (this.password.invalid) {
+        this.toastr.error(
+          'Por favor, verifique e tente novamente.',
+          'Senha inválida'
+        );
+
+        return;
+      } else if (this.password.value.length < 3) {
+        this.toastr.error(
+          'Por favor, verifique e tente novamente.',
+          'Senha deve ter possuir menos 4 caracteres'
+        );
+
+        return;
+      } else if (this.password.value !== this.confirmPassword.value) {
+        this.toastr.error(
+          'Por favor, verifique e tente novamente.',
+          'Senha e confirmação de senha não coincidem.'
+        );
+
+        return;
+      }
+
+      this.authService
+        .register({
+          name: this.name.value,
+          email: this.email.value,
+          password: this.password.value,
+        })
+        .subscribe(
+          (response) => {
+            this.isLogin = true;
+            this.loginForm.reset();
+            this.toastr.success('Conta criada com sucesso!');
+          },
+          (error) => {
+            this.toastr.error(error.error.message);
+          }
+        );
     }
   }
 }

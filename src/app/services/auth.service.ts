@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IUser } from 'src/types/User';
 
-type ILoginData = Pick<IUser, 'email' | 'password'>;
+type ILoginDTO = Pick<IUser, 'email' | 'password'>;
+
+type IRegisterDTO = Pick<IUser, 'name' | 'email' | 'password'>;
 
 interface ILoginResponse {
   user: IUser;
@@ -26,11 +28,11 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
-  login(data: ILoginData): Observable<ILoginResponse> {
+  login(data: ILoginDTO): Observable<ILoginResponse> {
     return this.http.post<ILoginResponse>(this.apiUrl + 'login', data);
   }
 
-  register(data: ILoginData) {
-    console.log(data);
+  register(data: IRegisterDTO) {
+    return this.http.post<Partial<IUser>>(this.apiUrl + 'user', data);
   }
 }
