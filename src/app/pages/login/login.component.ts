@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,7 +10,11 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  constructor(private titleService: Title, private authService: AuthService) {}
+  constructor(
+    private titleService: Title,
+    private authService: AuthService,
+    private toastr: ToastrService
+  ) {}
 
   loginForm!: FormGroup;
 
@@ -43,16 +48,19 @@ export class LoginComponent {
 
   submit() {
     if (this.isLogin) {
-      console.log(
-        this.authService
-          .login({
-            email: this.email.value,
-            password: this.password.value,
-          })
-          .subscribe((userResponse) => {
-            this.authService.setToken(userResponse.token)
-          })
-      );
+      this.authService
+        .login({
+          email: this.email.value,
+          password: this.password.value,
+        })
+        .subscribe(
+          (userResponse) => {
+            this.authService.setToken(userResponse.token);
+          },
+          (error) => {
+            this.toastr.error('Email ou senha inválida');
+          }
+        );
     } else {
       this.authService.register({
         email: this.email.value,
