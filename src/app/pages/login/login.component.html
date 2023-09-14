@@ -9,26 +9,44 @@
       <span>cadastro</span>
     </ng-template>
   </div>
-  <form>
+  <form (ngSubmit)="submit()" [formGroup]="loginForm" #formDir="ngForm">
+    <app-input
+      *ngIf="!isLogin"
+      placeholder="Nome"
+      name="confirmPassword"
+      type="password"
+      icon="person"
+      [ngClass]="{'input-error': isLogin}"
+      [ngClass]="{'input-error': email.invalid}"
+    />
     <app-input
       placeholder="E-mail"
       icon="email"
       name="email"
       type="email"
-      [isRequired]="true"
-      [(ngModel)]="email"
+      formControlName="email"
+      [ngClass]="{'input-error': email.invalid}"
     />
     <app-input
       placeholder="Senha"
       name="password"
       type="password"
       icon="lock"
-      [isRequired]="true"
-      [(ngModel)]="password"
+      formControlName="password"
+      [ngClass]="{'input-error': email.invalid}"
     />
-    <a href="#" *ngIf="isLogin" (click)="toggleIsLogin()"
+    <app-input
+      *ngIf="!isLogin"
+      placeholder="Confirme sua Senha"
+      name="confirmPassword"
+      type="password"
+      icon="lock"
+      [ngClass]="{'input-error': isLogin}"
+      [ngClass]="{'input-error': email.invalid}"
+    />
+    <!-- <a href="#" *ngIf="isLogin" (click)="toggleIsLogin()"
       ><p>Esqueci minha senha</p></a
-    >
+    > -->
 
     <button class="primary" *ngIf="isLogin; else registerButton">ENTRAR</button>
     <ng-template #registerButton>
