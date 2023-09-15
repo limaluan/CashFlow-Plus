@@ -11,9 +11,17 @@ import { AuthInterceptor } from './interceptors/auth-interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { CardItemComponent } from './components/card-item/card-item.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, InputComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    InputComponent,
+    DashboardComponent,
+    CardItemComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

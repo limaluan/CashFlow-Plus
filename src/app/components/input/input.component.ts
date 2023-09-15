@@ -1,8 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export interface IInputEventProps {
@@ -20,8 +16,8 @@ export interface IInputEventProps {
       provide: NG_VALUE_ACCESSOR,
       multi: true,
       useExisting: InputComponent,
-    }
-  ]
+    },
+  ],
 })
 export class InputComponent implements ControlValueAccessor {
   @Input() placeholder?: string = '';
@@ -29,7 +25,6 @@ export class InputComponent implements ControlValueAccessor {
   @Input() type: 'text' | 'number' | 'email' | 'password' = 'text';
   @Input() name!: string;
   @Input() isRequired: boolean = false;
-  @Input() isReadOnly = false;
 
   private innerValue: string = '';
 
@@ -59,6 +54,6 @@ export class InputComponent implements ControlValueAccessor {
     this.onTouchCb = fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    this.isReadOnly = isDisabled;
+    return;
   }
 }

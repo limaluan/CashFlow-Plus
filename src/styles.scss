@@ -1,4 +1,4 @@
-@import 'ngx-toastr/toastr';
+@import "ngx-toastr/toastr";
 
 :root {
   --black-800: #121214; // Background
@@ -37,6 +37,7 @@ body {
   background-color: var(--black-800);
   color: var(--white);
   font-family: "Roboto", sans-serif;
+  overflow-x: hidden;
 }
 
 img {
@@ -60,5 +61,22 @@ button[class~="primary"] {
   &:hover {
     transition: background 100ms;
     background-color: var(--green-dark);
+  }
+}
+
+@media (min-width: 1024px) {
+  ::-webkit-scrollbar {
+    width: 6px;
+    position: absolute;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--black-500);
+    border-radius: 6px;
+    position: absolute;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--black-600);
   }
 }

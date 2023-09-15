@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -13,7 +14,8 @@ export class LoginComponent {
   constructor(
     private titleService: Title,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private router: Router
   ) {}
 
   loginForm!: FormGroup;
@@ -21,7 +23,9 @@ export class LoginComponent {
   isLogin: boolean = true;
 
   ngOnInit() {
-    this.titleService.setTitle('Login - CashFlow');
+    this.titleService.setTitle('Login | CashFlow');
+
+    if (this.authService.getToken()) this.router.navigate(['/dashboard']);
 
     this.loginForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -62,8 +66,9 @@ export class LoginComponent {
         .subscribe(
           (userResponse) => {
             this.authService.setToken(userResponse.token);
+            this.router.navigate(['/dashboard']);
           },
-          (error) => {
+          (_error) => {
             this.toastr.error('Email ou senha inválida');
           }
         );
@@ -112,7 +117,7 @@ export class LoginComponent {
           password: this.password.value,
         })
         .subscribe(
-          (response) => {
+          (_response) => {
             this.isLogin = true;
             this.loginForm.reset();
             this.toastr.success('Conta criada com sucesso!');
