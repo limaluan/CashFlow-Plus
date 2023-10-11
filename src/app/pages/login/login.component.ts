@@ -4,6 +4,7 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent {
     private titleService: Title,
     private authService: AuthService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) {}
 
   loginForm!: FormGroup;
@@ -25,7 +27,9 @@ export class LoginComponent {
   ngOnInit() {
     this.titleService.setTitle('Login | CashFlow');
 
-    if (this.authService.getToken()) this.router.navigate(['/dashboard']);
+    this.userService.user.subscribe(
+      (user) => user.id && this.router.navigate(['dashboard'])
+    );
 
     this.loginForm = new FormGroup({
       name: new FormControl('', [Validators.required]),

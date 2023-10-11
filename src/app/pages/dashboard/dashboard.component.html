@@ -2,7 +2,7 @@
   <header>
     <div>
       <img src="../../../assets/cashflow-icon.png" alt="Cashflow" />
-      <h1>Olá, Luan</h1>
+      <h1>Olá, {{ user.name }}</h1>
     </div>
     <button class="primary">Nova Transação</button>
   </header>
@@ -11,21 +11,25 @@
     <section class="balances-container">
       <div>
         <p>Entradas</p>
-        <h2>R$ 17.400,00</h2>
-        <p>Última entrada em 13 de abril</p>
+        <h2>R$ {{ userBalance.credits }}</h2>
+        <p *ngIf="lastCreditTransaction.created_at">
+          Última entrada em {{ lastCreditTransaction.created_at }}
+        </p>
         <img src="../../../assets/circle-up.svg" alt="Seta pra cima" />
       </div>
 
       <div>
         <p>Saída</p>
-        <h2>R$ 1.259,00</h2>
-        <p>Última saída em 13 de abril</p>
+        <h2>R$ {{ userBalance.debits }}</h2>
+        <p *ngIf="lastCreditTransaction.created_at">
+          Última saída em {{ lastDebitTransaction.created_at }}
+        </p>
         <img src="../../../assets/circle-down.svg" alt="Seta pra baixo" />
       </div>
 
       <div style="background-color: var(--green-dark)">
         <p>Total</p>
-        <h2>R$ 16.141,00</h2>
+        <h2>R$ {{ userBalance.balance }}</h2>
         <p style="visibility: hidden">a</p>
         <img src="../../../assets/dollar.svg" alt="Ícone de dólar" />
       </div>
@@ -41,24 +45,24 @@
         componentClass="test"
         placeholder="Busque uma transação"
         name="search-bar"
+        [(ngModel)]="search"
       />
-      <button>
+      <button (click)="filterTransactionsByName()">
         <i class="material-icons">search</i>
         <span>Buscar</span>
       </button>
     </div>
 
     <section class="card-list">
-      <app-card-item />
-      <app-card-item />
-      <app-card-item />
-      <app-card-item />
-      <app-card-item />
-      <app-card-item />
-      <app-card-item />
-      <app-card-item />
-      <app-card-item />
-      <app-card-item />
+      <app-card-item
+        *ngFor="let transaction of userTransactions"
+        [amount]="transaction.amount"
+        [category]="transaction.category"
+        [description]="transaction.description"
+        [type]="transaction.type"
+        [id]="transaction.id"
+        [created_at]="transaction.created_at"
+      />
     </section>
   </main>
 </div>

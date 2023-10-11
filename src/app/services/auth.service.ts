@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IUser } from 'src/types/User';
+import { IUserDTO } from 'src/@types/User';
 
-type ILoginDTO = Pick<IUser, 'email' | 'password'>;
+type ILoginDTO = Pick<IUserDTO, 'email' | 'password'>;
 
-type IRegisterDTO = Pick<IUser, 'name' | 'email' | 'password'>;
+type IRegisterDTO = Pick<IUserDTO, 'name' | 'email' | 'password'>;
 
 interface ILoginResponse {
-  user: IUser;
+  user: IUserDTO;
   token: string;
 }
 
@@ -33,6 +33,6 @@ export class AuthService {
   }
 
   register(data: IRegisterDTO) {
-    return this.http.post<Partial<IUser>>(this.apiUrl + 'user', data);
+    return this.http.post<Partial<IUserDTO>>(this.apiUrl + 'user', data);
   }
 }
