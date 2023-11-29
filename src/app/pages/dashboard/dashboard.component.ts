@@ -23,7 +23,7 @@ export class DashboardComponent {
   ) {
     this.transactionAddedSubscription =
       this.transactionService.transactionAddedSource$.subscribe(() => {
-        this.refreshTranscations();
+        this.refreshTransactions();
       });
   }
 
@@ -41,10 +41,10 @@ export class DashboardComponent {
     this.titleService.setTitle('Dashboard | Cashflow');
 
     this.userService.user.subscribe((user) => (this.user = user));
-    this.refreshTranscations();
+    this.refreshTransactions();
   }
 
-  refreshTranscations() {
+  refreshTransactions() {
     console.log('Atualizou');
     this.transactionService.userTransactions.subscribe((transactions) => {
       this.userTransactions = transactions;

@@ -47,25 +47,6 @@ export class NewTransactionComponent {
   }
 
   onConfirm() {
-    if (this.description.value.length < 3) {
-      this.toastr.error(
-        'Por favor, insira uma descrição maior.',
-        'Descrição inválida'
-      );
-    } else if (this.amount.value <= 0) {
-      this.toastr.error('Insira um valor maior do que 0', 'Valor inválido');
-    } else if (this.category.value.length <= 2) {
-      this.toastr.error(
-        'A categoria deve possuir mais que 2 letras.',
-        'Categoria inválida'
-      );
-    } else if (this.type != 'credit' && this.type != 'debit') {
-      this.toastr.error(
-        'Por favor, selecione o tipo de transação.',
-        'Tipo de transação inválido'
-      );
-    }
-
     this.transactionsService
       .createTransaction({
         description: this.description.value,
@@ -79,7 +60,7 @@ export class NewTransactionComponent {
           this.transactionsService.announceTransactionAdded();
           this.dialogRef.close();
         },
-        (error) => console.log(error)
+        (error) => this.toastr.error(error.error.message)
       );
   }
 }
