@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 import { IUser, ITransaction, IUserBalance } from 'src/@types';
+import { NewTransactionComponent } from 'src/app/components/new-transaction/new-transaction.component';
+import { TransactionsService } from 'src/app/services/transactions.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,7 +13,19 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent {
-  constructor(private userService: UserService, private titleService: Title) {}
+  private transactionAddedSubscription: Subscription;
+
+  constructor(
+    private transactionService: TransactionsService,
+    private userService: UserService,
+    private titleService: Title,
+    public dialog: MatDialog
+  ) {
+    this.transactionAddedSubscription =
+      this.transactionService.transactionAddedSource$.subscribe(() => {
+        this.refreshTranscations();
+      });
+  }
 
   user: IUser = {} as IUser;
   userTransactions: ITransaction[] = [] as ITransaction[];
@@ -25,7 +41,12 @@ export class DashboardComponent {
     this.titleService.setTitle('Dashboard | Cashflow');
 
     this.userService.user.subscribe((user) => (this.user = user));
-    this.userService.userTransactions.subscribe((transactions) => {
+    this.refreshTranscations();
+  }
+
+  refreshTranscations() {
+    console.log('Atualizou');
+    this.transactionService.userTransactions.subscribe((transactions) => {
       this.userTransactions = transactions;
 
       this.lastDebitTransaction = transactions.reduce(
@@ -56,13 +77,24 @@ export class DashboardComponent {
         { ...transactions[0], id: -1 }
       );
     });
-    this.userService.userBalance.subscribe(
+
+    this.transactionService.userBalance.subscribe(
       (balanceData) => (this.userBalance = balanceData)
     );
   }
 
+  createTransaction() {
+    const dialogRef = this.dialog.open(NewTransactionComponent, {
+      data: 'Sera mano',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('The dialog was closed');
+    });
+  }
+
   filterTransactionsByName() {
-    this.userService.userTransactions.subscribe(
+    this.transactionService.userTransactions.subscribe(
       (transactions) =>
         (this.userTransactions = transactions.filter(
           (transaction) =>

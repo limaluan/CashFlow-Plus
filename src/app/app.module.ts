@@ -13,6 +13,8 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CardItemComponent } from './components/card-item/card-item.component';
+import { NewTransactionComponent } from './components/new-transaction/new-transaction.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { CardItemComponent } from './components/card-item/card-item.component';
     InputComponent,
     DashboardComponent,
     CardItemComponent,
+    NewTransactionComponent,
   ],
   imports: [
     BrowserModule,
@@ -31,6 +34,7 @@ import { CardItemComponent } from './components/card-item/card-item.component';
     CommonModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    MatDialogModule
   ],
   providers: [
     {

@@ -1,0 +1,35 @@
+<form class="container" [formGroup]="transactionForm" #formDir="ngForm" (ngSubmit)="onConfirm()">
+  <h1>Nova transação</h1>
+  <button class="close-button" mat-dialog-close>
+    <img src="../../../assets/close.svg" alt="Fechar Modal" />
+  </button>
+
+  <app-input formControlName="description" placeholder="Descrição" />
+  <app-input type="number" formControlName="amount" placeholder="Preço" />
+  <app-input formControlName="category" placeholder="Categoria" />
+
+  <div class="buttons">
+    <button
+      (click)="changeType('credit')"
+      [ngClass]="type === 'credit' ? 'selected-deposit' : ''"
+      type="button"
+    >
+      <img src="../../../assets/circle-up.svg" alt="Seta pra cima" />
+      Entrada
+    </button>
+    <button
+      (click)="changeType('debit')"
+      [ngClass]="type === 'debit' ? 'selected-withdrawl' : ''"
+      type="button"
+    >
+      <img src="../../../assets/circle-down.svg" alt="Seta pra baixo" />
+      Saída
+    </button>
+  </div>
+
+  <button class="primary confirm-button">
+    Cadastrar
+  </button>
+</form>
+
+<!-- [mat-dialog-close]="onConfirm()" -->
