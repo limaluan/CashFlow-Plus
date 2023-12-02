@@ -6,3 +6,8 @@ export interface ITransaction {
   category: string;
   created_at: string;
 }
+
+export interface ILastTransactionsDTO {
+  lastCreditTransaction: ITransaction;
+  lastDebitTransaction: ITransaction;
+}

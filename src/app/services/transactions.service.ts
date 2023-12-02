@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { IUserBalance } from 'src/@types';
-import { ITransaction } from 'src/@types/Transactions';
+import { ILastTransactionsDTO, ITransaction } from 'src/@types/Transactions';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,12 @@ export class TransactionsService {
 
   get userTransactions(): Observable<ITransaction[]> {
     return this.http.get(this.apiUrl) as Observable<ITransaction[]>;
+  }
+
+  get userLastsTransactions(): Observable<ILastTransactionsDTO> {
+    return this.http.get(
+      this.apiUrl + 'lastTransactions'
+    ) as Observable<ILastTransactionsDTO>;
   }
 
   get userBalance(): Observable<IUserBalance> {

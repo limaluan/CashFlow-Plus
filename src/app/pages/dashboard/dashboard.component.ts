@@ -32,7 +32,6 @@ export class DashboardComponent {
   userBalance: IUserBalance = {} as IUserBalance;
 
   lastDebitTransaction: ITransaction = {} as ITransaction;
-
   lastCreditTransaction: ITransaction = {} as ITransaction;
 
   search: string = '';
@@ -41,6 +40,22 @@ export class DashboardComponent {
     this.titleService.setTitle('Dashboard | Cashflow');
 
     this.userService.user.subscribe((user) => (this.user = user));
+    this.transactionService.userLastsTransactions.subscribe(
+      (lastTransactions) => {
+        this.lastDebitTransaction = {
+          ...lastTransactions.lastDebitTransaction,
+          created_at: this.formatDate(
+            lastTransactions.lastDebitTransaction.created_at
+          ),
+        };
+        this.lastCreditTransaction = {
+          ...lastTransactions.lastCreditTransaction,
+          created_at: this.formatDate(
+            lastTransactions.lastCreditTransaction.created_at
+          ),
+        };
+      }
+    );
     this.refreshTransactions();
   }
 
@@ -48,34 +63,6 @@ export class DashboardComponent {
     console.log('Atualizou');
     this.transactionService.userTransactions.subscribe((transactions) => {
       this.userTransactions = transactions;
-
-      this.lastDebitTransaction = transactions.reduce(
-        (prevObj, currentObj) => {
-          if (currentObj.type === 'debit') {
-            return currentObj.id > prevObj.id
-              ? {
-                  ...currentObj,
-                  created_at: this.formatDate(currentObj.created_at),
-                }
-              : prevObj;
-          } else return prevObj;
-        },
-        { ...transactions[0], id: -1 }
-      );
-
-      this.lastCreditTransaction = transactions.reduce(
-        (prevObj, currentObj) => {
-          if (currentObj.type === 'credit') {
-            return currentObj.id > prevObj.id
-              ? {
-                  ...currentObj,
-                  created_at: this.formatDate(currentObj.created_at),
-                }
-              : prevObj;
-          } else return prevObj;
-        },
-        { ...transactions[0], id: -1 }
-      );
     });
 
     this.transactionService.userBalance.subscribe(
