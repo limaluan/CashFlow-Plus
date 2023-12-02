@@ -61,8 +61,8 @@ export class DashboardComponent {
 
   refreshTransactions() {
     console.log('Atualizou');
-    this.transactionService.userTransactions.subscribe((transactions) => {
-      this.userTransactions = transactions;
+    this.transactionService.userTransactions.subscribe((data) => {
+      this.userTransactions = data.transactions;
     });
 
     this.transactionService.userBalance.subscribe(
@@ -71,19 +71,13 @@ export class DashboardComponent {
   }
 
   createTransaction() {
-    const dialogRef = this.dialog.open(NewTransactionComponent, {
-      data: 'Sera mano',
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('The dialog was closed');
-    });
+    this.dialog.open(NewTransactionComponent);
   }
 
   filterTransactionsByName() {
     this.transactionService.userTransactions.subscribe(
-      (transactions) =>
-        (this.userTransactions = transactions.filter(
+      (data) =>
+        (this.userTransactions = data.transactions.filter(
           (transaction) =>
             this.search === '' ||
             transaction.description
