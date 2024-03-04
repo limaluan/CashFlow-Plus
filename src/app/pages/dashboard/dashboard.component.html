@@ -67,5 +67,8 @@
         [createdAt]="transaction.createdAt"
       />
     </section>
+
+    <h1 class="no-transactions-text" *ngIf="userTransactions.length == 0">Você ainda não possui transações...</h1>
+
   </main>
 </div>
