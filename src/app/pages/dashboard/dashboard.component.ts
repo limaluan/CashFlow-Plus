@@ -44,14 +44,14 @@ export class DashboardComponent {
       (lastTransactions) => {
         this.lastDebitTransaction = {
           ...lastTransactions.lastDebitTransaction,
-          created_at: this.formatDate(
-            lastTransactions.lastDebitTransaction.created_at
+          createdAt: this.formatDate(
+            lastTransactions.lastDebitTransaction.createdAt
           ),
         };
         this.lastCreditTransaction = {
           ...lastTransactions.lastCreditTransaction,
-          created_at: this.formatDate(
-            lastTransactions.lastCreditTransaction.created_at
+          createdAt: this.formatDate(
+            lastTransactions.lastCreditTransaction.createdAt
           ),
         };
       }
@@ -62,7 +62,7 @@ export class DashboardComponent {
   refreshTransactions() {
     console.log('Atualizou');
     this.transactionService.userTransactions.subscribe((data) => {
-      this.userTransactions = data.transactions;
+      this.userTransactions = data.content;
     });
 
     this.transactionService.userBalance.subscribe(
@@ -77,7 +77,7 @@ export class DashboardComponent {
   filterTransactionsByName() {
     this.transactionService.userTransactions.subscribe(
       (data) =>
-        (this.userTransactions = data.transactions.filter(
+        (this.userTransactions = data.content.filter(
           (transaction) =>
             this.search === '' ||
             transaction.description

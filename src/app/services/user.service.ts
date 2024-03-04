@@ -8,7 +8,7 @@ import { IUser } from 'src/@types/User';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000/';
+  private apiUrl = 'http://localhost:8080/';
 
   constructor(private http: HttpClient, private router: Router) {}
 

@@ -8,7 +8,7 @@ import { ILastTransactionsDTO, ITransaction, ITransactionsDTO } from 'src/@types
   providedIn: 'root',
 })
 export class TransactionsService {
-  private apiUrl = 'http://localhost:3000/user/transactions/';
+  private apiUrl = 'http://localhost:8080/user/transactions';
   private transactionAddedSource = new Subject<void>();
 
   transactionAddedSource$ = this.transactionAddedSource.asObservable();
@@ -25,12 +25,12 @@ export class TransactionsService {
 
   get userLastsTransactions(): Observable<ILastTransactionsDTO> {
     return this.http.get(
-      this.apiUrl + 'lastTransactions'
+      this.apiUrl + '/lastTransactions'
     ) as Observable<ILastTransactionsDTO>;
   }
 
   get userBalance(): Observable<IUserBalance> {
-    return this.http.get(this.apiUrl + 'balance') as Observable<IUserBalance>;
+    return this.http.get(this.apiUrl + '/balance') as Observable<IUserBalance>;
   }
 
   createTransaction(data: Partial<ITransaction>): Observable<any> {

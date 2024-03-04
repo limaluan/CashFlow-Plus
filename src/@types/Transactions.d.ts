@@ -1,17 +1,23 @@
 export interface ITransaction {
-  id: number;
+  id: string;
   type: 'debit' | 'credit';
   amount: number;
   description: string;
   category: string;
-  created_at: string;
+  createdAt: string;
 }
 
 export interface ITransactionsDTO {
-  transactions: ITransaction[];
-  totalPages: number;
-  currentPage: number;
-  totalTransactions: number;
+  content: ITransaction[];
+  pageable: {
+    pageNumber: number;
+    pageSize: number;
+    sort: {
+      empty: boolean;
+      sorted: boolean;
+      unsorted: boolean;
+    };
+  };
 }
 
 export interface ILastTransactionsDTO {

@@ -7,14 +7,14 @@ import { formatDate } from 'src/utils/formatDate';
   styleUrls: ['./card-item.component.scss'],
 })
 export class CardItemComponent {
-  @Input() id!: number;
+  @Input() id!: string;
   @Input() type!: 'debit' | 'credit';
   @Input() amount!: number;
   @Input() description!: string;
   @Input() category!: string;
-  @Input() created_at!: string;
+  @Input() createdAt!: string;
 
   ngOnInit() {
-    this.created_at = formatDate(this.created_at);
+    this.createdAt = formatDate(this.createdAt);
   }
 }

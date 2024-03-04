@@ -8,7 +8,6 @@ type ILoginDTO = Pick<IUserDTO, 'email' | 'password'>;
 type IRegisterDTO = Pick<IUserDTO, 'name' | 'email' | 'password'>;
 
 interface ILoginResponse {
-  user: IUserDTO;
   token: string;
 }
 
@@ -16,7 +15,7 @@ interface ILoginResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/';
+  private apiUrl = 'http://localhost:8080/auth/';
 
   constructor(private http: HttpClient) {}
 
@@ -33,6 +32,6 @@ export class AuthService {
   }
 
   register(data: IRegisterDTO) {
-    return this.http.post<Partial<IUserDTO>>(this.apiUrl + 'user', data);
+    return this.http.post<Partial<IUserDTO>>(this.apiUrl + 'register', data);
   }
 }

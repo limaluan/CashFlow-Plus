@@ -14,8 +14,8 @@
       <div>
         <p>Entradas</p>
         <h2>R$ {{ userBalance.credits.toFixed(2) }}</h2>
-        <p *ngIf="lastCreditTransaction.created_at">
-          Última entrada em {{ lastCreditTransaction.created_at }}
+        <p *ngIf="lastCreditTransaction.createdAt">
+          Última entrada em {{ lastCreditTransaction.createdAt }}
         </p>
         <img src="../../../assets/circle-up.svg" alt="Seta pra cima" />
       </div>
@@ -23,8 +23,8 @@
       <div>
         <p>Saída</p>
         <h2>R$ {{ userBalance.debits.toFixed(2) }}</h2>
-        <p *ngIf="lastCreditTransaction.created_at">
-          Última saída em {{ lastDebitTransaction.created_at }}
+        <p *ngIf="lastCreditTransaction.createdAt">
+          Última saída em {{ lastDebitTransaction.createdAt }}
         </p>
         <img src="../../../assets/circle-down.svg" alt="Seta pra baixo" />
       </div>
@@ -64,7 +64,7 @@
         [description]="transaction.description"
         [type]="transaction.type"
         [id]="transaction.id"
-        [created_at]="transaction.created_at"
+        [createdAt]="transaction.createdAt"
       />
     </section>
   </main>
