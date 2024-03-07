@@ -1,0 +1,45 @@
+<nav *ngIf="totalPages > 0">
+  <button
+    [ngClass]="pageNumber == 1 ? 'disabled' : ''"
+    class="arrow"
+    (click)="handlePreviousPage()"
+    type="button"
+  >
+    <
+  </button>
+
+  <button
+    [disabled]="pageNumber <= 1"
+    (click)="handleSelectPage(pageNumber - 5)"
+    class="more"
+  >
+    ...
+  </button>
+
+  <button
+    *ngFor="let page of pages()"
+    class="page"
+    [ngClass]="pageNumber == page ? 'selected' : ''"
+    type="button"
+    (click)="handleSelectPage(page)"
+  >
+    {{ page }}
+  </button>
+
+  <button
+    [disabled]="pageNumber + 5 >= totalPages"
+    (click)="handleSelectPage(pageNumber + 5)"
+    class="more"
+  >
+    ...
+  </button>
+
+  <button
+    [ngClass]="pageNumber == totalPages ? 'disabled' : ''"
+    class="arrow"
+    (click)="handleNextPage()"
+    type="button"
+  >
+    >
+  </button>
+</nav>

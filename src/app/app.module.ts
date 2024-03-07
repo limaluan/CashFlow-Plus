@@ -15,6 +15,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CardItemComponent } from './components/card-item/card-item.component';
 import { NewTransactionComponent } from './components/new-transaction/new-transaction.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     DashboardComponent,
     CardItemComponent,
     NewTransactionComponent,
+    PaginationComponent,
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,13 @@ export interface ITransactionsDTO {
       unsorted: boolean;
     };
   };
+  last: boolean;
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  first: boolean;
+  numberOfElements: number;
+  empty: boolean;
 }
 
 export interface ILastTransactionsDTO {

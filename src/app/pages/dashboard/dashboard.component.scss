@@ -148,7 +148,13 @@ main {
 .no-transactions-text {
   text-align: center;
   margin-right: 24px;
+}
 
+::ng-deep app-pagination {
+  nav {
+  padding-top: 24px;
+  margin-right: 24px;
+  }
 }
 
 @media (min-width: 1024px) {

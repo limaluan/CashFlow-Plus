@@ -19,8 +19,8 @@ export class TransactionsService {
 
   constructor(private http: HttpClient) {}
 
-  get userTransactions(): Observable<ITransactionsDTO> {
-    return this.http.get(this.apiUrl) as Observable<ITransactionsDTO>;
+  getUserTransactions(pageNumber: number = 0): Observable<ITransactionsDTO> {
+    return this.http.get(this.apiUrl + `?page=${pageNumber}`) as Observable<ITransactionsDTO>;
   }
 
   get userLastsTransactions(): Observable<ILastTransactionsDTO> {

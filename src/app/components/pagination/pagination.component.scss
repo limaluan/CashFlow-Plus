@@ -1,0 +1,40 @@
+nav {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow.disabled {
+  color: var(--black-400);
+  cursor: default;
+}
+
+.more {
+  width: 40px;
+  height: 40px;
+}
+
+.more:disabled {
+  display: none;
+}
+
+.page {
+  width: 4rem;
+  height: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.6rem;
+  border-radius: 6px;
+  background-color: var(--black-500);
+  color: var(--black-400);
+  font-weight: bold;
+}
+
+.selected {
+  background-color:  var(--green-dark);
+  color: var(--black-200);
+  cursor: default;
+}
