@@ -1,7 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { ITransactionsDTO, IUser } from 'src/@types';
-import { TransactionsService } from 'src/app/services/transactions.service';
-import { UserService } from 'src/app/services/user.service';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-pagination',
@@ -9,10 +6,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./pagination.component.scss'],
 })
 export class PaginationComponent {
-  constructor(
-    private userService: UserService,
-    private transactionService: TransactionsService
-  ) {}
+  constructor() {}
 
   @Output() switchPage = new EventEmitter<number>();
 
@@ -20,20 +14,8 @@ export class PaginationComponent {
     this.switchPage.emit(pageNumber);
   }
 
-  user: IUser = {} as IUser;
-  userTransactions: ITransactionsDTO = {} as ITransactionsDTO;
-  pageNumber!: number;
-  totalPages!: number;
-  isLastPages: boolean = false;
-
-  ngOnInit() {
-    this.userService.user.subscribe((user) => (this.user = user));
-    this.transactionService.getUserTransactions().subscribe((data) => {
-      this.userTransactions = data;
-      this.pageNumber = data.pageable.pageNumber + 1;
-      this.totalPages = data.totalPages;
-    });
-  }
+  @Input() pageNumber!: number;
+  @Input() totalPages!: number;
 
   handlePreviousPage() {
     if (this.pageNumber > 1) {
@@ -52,6 +34,7 @@ export class PaginationComponent {
   handleSelectPage(pageNumber: number) {
     if (pageNumber < 1) {
       this.pageNumber = 1;
+      this.handleSwitchPage(0);
     } else if (pageNumber != this.pageNumber) {
       this.pageNumber = pageNumber;
       this.handleSwitchPage(this.pageNumber - 1);
@@ -69,14 +52,11 @@ export class PaginationComponent {
       page++
     ) {
       if (page <= this.totalPages) pages.push(page);
-      else {
-        console.log(pages.sort()[0]);
+      else if (pages.sort()[0] - 1 > 0) {
         pages.push(pages[0] - 1);
       }
     }
 
     return pages.sort();
-
-    return Array.from({ length: arrayLength }, (_, index) => index + 1);
   }
 }

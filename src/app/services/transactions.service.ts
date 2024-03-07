@@ -19,7 +19,11 @@ export class TransactionsService {
 
   constructor(private http: HttpClient) {}
 
-  getUserTransactions(pageNumber: number = 0): Observable<ITransactionsDTO> {
+  getUserTransactions(pageNumber: number = 0, transactionDescription?: string): Observable<ITransactionsDTO> {
+    if (transactionDescription) {
+      return this.http.get(this.apiUrl + `?page=${pageNumber}` +
+      `&transactionDescription=${transactionDescription}`) as Observable<ITransactionsDTO>;
+    }
     return this.http.get(this.apiUrl + `?page=${pageNumber}`) as Observable<ITransactionsDTO>;
   }
 

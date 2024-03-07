@@ -1,4 +1,4 @@
-<nav *ngIf="totalPages > 0">
+<nav *ngIf="totalPages > 1">
   <button
     [ngClass]="pageNumber == 1 ? 'disabled' : ''"
     class="arrow"
@@ -9,7 +9,7 @@
   </button>
 
   <button
-    [disabled]="pageNumber <= 1"
+    [disabled]="pageNumber <= 1 || totalPages <= 5"
     (click)="handleSelectPage(pageNumber - 5)"
     class="more"
   >
@@ -27,7 +27,7 @@
   </button>
 
   <button
-    [disabled]="pageNumber + 5 >= totalPages"
+    [disabled]="pageNumber + 4 >= totalPages"
     (click)="handleSelectPage(pageNumber + 5)"
     class="more"
   >

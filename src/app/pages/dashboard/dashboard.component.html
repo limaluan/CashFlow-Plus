@@ -43,17 +43,17 @@
     </div>
 
     <div class="search-bar">
-      <!-- <app-input
+      <app-input
         componentClass="test"
         placeholder="Busque uma transação"
         name="search-bar"
         [(ngModel)]="search"
         (keyup.enter)="filterTransactionsByName()"
-      /> -->
-      <!-- <button (click)="filterTransactionsByName()">
+      />
+      <button (click)="filterTransactionsByName()">
         <i class="material-icons">search</i>
         <span>Buscar</span>
-      </button> -->
+      </button>
     </div>
 
     <section class="card-list">
@@ -68,9 +68,17 @@
       />
     </section>
 
-    <h1 class="no-transactions-text" *ngIf="userTransactions.totalElements == 0">Você ainda não possui transações...</h1>
+    <h1
+      class="no-transactions-text"
+      *ngIf="userTransactions.totalElements == 0"
+    >
+      Você ainda não possui transações...
+    </h1>
 
-    <app-pagination (switchPage)="refreshTransactions($event)"/>
-
+    <app-pagination
+      [totalPages]="totalPages"
+      [pageNumber]="pageNumber + 1"
+      (switchPage)="refreshTransactions($event)"
+    />
   </main>
 </div>

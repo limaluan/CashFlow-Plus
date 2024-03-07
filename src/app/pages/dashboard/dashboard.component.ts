@@ -2,7 +2,12 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
-import { IUser, ITransaction, IUserBalance, ITransactionsDTO } from 'src/@types';
+import {
+  ITransaction,
+  ITransactionsDTO,
+  IUser,
+  IUserBalance,
+} from 'src/@types';
 import { NewTransactionComponent } from 'src/app/components/new-transaction/new-transaction.component';
 import { TransactionsService } from 'src/app/services/transactions.service';
 import { UserService } from 'src/app/services/user.service';
@@ -30,6 +35,10 @@ export class DashboardComponent {
   user: IUser = {} as IUser;
   userTransactions: ITransactionsDTO = {} as ITransactionsDTO;
   userBalance: IUserBalance = {} as IUserBalance;
+
+  pageNumber!: number;
+  totalPages!: number;
+  searchMode: boolean = false;
 
   lastDebitTransaction: ITransaction = {} as ITransaction;
   lastCreditTransaction: ITransaction = {} as ITransaction;
@@ -59,11 +68,26 @@ export class DashboardComponent {
     this.refreshTransactions();
   }
 
-  refreshTransactions(pageNumber: number = 0) {
-    console.log('Atualizou');
-    this.transactionService.getUserTransactions(pageNumber).subscribe((data) => {
-      this.userTransactions = data;
-    });
+  refreshTransactions(
+    pageNumber: number = 0,
+  ): any {
+    if (this.searchMode) {
+      return this.transactionService
+        .getUserTransactions(pageNumber, this.search)
+        .subscribe((data) => {
+          this.userTransactions = data;
+          this.totalPages = data.totalPages;
+          this.pageNumber = data.pageable.pageNumber;
+        });
+    }
+
+    this.transactionService
+      .getUserTransactions(pageNumber)
+      .subscribe((data) => {
+        this.userTransactions = data;
+        this.totalPages = data.totalPages;
+        this.pageNumber = data.pageable.pageNumber;
+      });
 
     this.transactionService.userBalance.subscribe(
       (balanceData) => (this.userBalance = balanceData)
@@ -74,18 +98,18 @@ export class DashboardComponent {
     this.dialog.open(NewTransactionComponent);
   }
 
-  // filterTransactionsByName() {
-  //   this.transactionService.userTransactions.subscribe(
-  //     (data) =>
-  //       (this.userTransactions = data.content.filter(
-  //         (transaction) =>
-  //           this.search === '' ||
-  //           transaction.description
-  //             .toLowerCase()
-  //             .includes(this.search.toLowerCase())
-  //       ))
-  //   );
-  // }
+  filterTransactionsByName() {
+    this.searchMode = true;
+    this.search == '' && (this.searchMode = false);
+
+    this.transactionService
+      .getUserTransactions(0, this.search)
+      .subscribe((data) => {
+        this.userTransactions = data;
+        this.totalPages = data.totalPages;
+        this.pageNumber = data.pageable.pageNumber;
+      });
+  }
 
   formatDate(dateString: string) {
     const date = new Date(dateString);
