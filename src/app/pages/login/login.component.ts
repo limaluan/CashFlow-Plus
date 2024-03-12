@@ -27,8 +27,8 @@ export class LoginComponent {
   ngOnInit() {
     this.titleService.setTitle('Login | CashFlow');
 
-    this.userService.user.subscribe(
-      (user) => user.id && this.router.navigate(['dashboard'])
+    this.userService.user.subscribe((user) =>
+      user ? this.router.navigate(['dashboard']) : this.authService.logout()
     );
 
     this.loginForm = new FormGroup({

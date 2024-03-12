@@ -4,9 +4,15 @@
       <img src="../../../assets/cashflow-icon.png" alt="Cashflow" />
       <h1>Olá, {{ user.name }}</h1>
     </div>
-    <button class="primary" (click)="createTransaction()">
-      Nova Transação
-    </button>
+    <div>
+      <button class="primary" (click)="createTransaction()">
+        Nova Transação
+      </button>
+      <button class="logout" (click)="handleLogout()">
+        <span>Sair</span>
+        <img src="../../../assets/logout_icon.svg" alt="Seta pra cima" />
+      </button>
+    </div>
   </header>
 
   <main>

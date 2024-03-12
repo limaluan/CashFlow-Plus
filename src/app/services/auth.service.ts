@@ -34,4 +34,8 @@ export class AuthService {
   register(data: IRegisterDTO) {
     return this.http.post<Partial<IUserDTO>>(this.apiUrl + 'register', data);
   }
+
+  logout() {
+    localStorage.removeItem('token');
+  }
 }

@@ -9,6 +9,7 @@ import {
   IUserBalance,
 } from 'src/@types';
 import { NewTransactionComponent } from 'src/app/components/new-transaction/new-transaction.component';
+import { AuthService } from 'src/app/services/auth.service';
 import { TransactionsService } from 'src/app/services/transactions.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -24,7 +25,8 @@ export class DashboardComponent {
     private transactionService: TransactionsService,
     private userService: UserService,
     private titleService: Title,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private authService: AuthService
   ) {
     this.transactionAddedSubscription =
       this.transactionService.transactionAddedSource$.subscribe(() => {
@@ -68,9 +70,7 @@ export class DashboardComponent {
     this.refreshTransactions();
   }
 
-  refreshTransactions(
-    pageNumber: number = 0,
-  ): any {
+  refreshTransactions(pageNumber: number = 0): any {
     if (this.searchMode) {
       return this.transactionService
         .getUserTransactions(pageNumber, this.search)
@@ -96,6 +96,11 @@ export class DashboardComponent {
 
   createTransaction() {
     this.dialog.open(NewTransactionComponent);
+  }
+
+  handleLogout() {
+    this.authService.logout();
+    location.reload();
   }
 
   filterTransactionsByName() {
