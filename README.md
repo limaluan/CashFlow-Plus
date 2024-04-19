@@ -1,27 +1,109 @@
-# CashFlowPlus
+<h1 align="center">
+  <img alt="Coffee Delivery" title="Coffee Delivery" src="./src/assets/logo.svg" width="440px" />
+</h1>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+<p align="center">
+  <a href="#-contexto">Contexto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-layout">Layout</a>&nbsp;&nbsp;&nbsp;
+</p>
 
-## Development server
+## 🧠 Contexto
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+<p>O CashFlow Plus é uma aplicação que permite registros de movimentos financeiros.</p>
 
-## Code scaffolding
+<p align="center">
+  <img alt="Página Inicial / Dashboard" src="https://i.imgur.com/czSRIyr.png" width="100%">
+</p>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<p>O CashFlow Plus possui features como:</p>
 
-## Build
+- Sistema de autenticação
+- Cadastro de Transações
+- Busca de Transações
+- Paginação de Transações
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Você pode acessar o Back-End da aplicação feito em Java com SpringBoot seguindo esse [link](https://github.com/limaluan/api-cashflow-java).
 
-## Running unit tests
+( ⚠️ Também existe uma versão da API que eu fiz em NodeJs que está um pouco desatualizada, por isso não é mais compativél com branch principal deste projeto, sendo assim necessário o front end estar na branch [nodejs-version](https://github.com/limaluan/CashFlow-Plus/tree/nodejs-version))
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 🚀 Tecnologias
 
-## Running end-to-end tests
+<h2><img height="36px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/angularjs/angularjs-original.svg" /> Angular</h2>
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+<p>O <b>Angular</b> foi o framework utilizado para o Front-End.</p>
 
-## Further help
+<h2><img height="36px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/spring/spring-original.svg"/> SpringBoot</h2>
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+<p>O <b>SpringBoot</b> foi utilizado para criação da API no Back-End.</p>
+
+<h2><img height="36px" src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-plain-wordmark.svg"/> NodeJs</h2>
+
+<p>O <b>NodeJs</b> foi utilizado para criar a API da branch **nodejs-version**.</p>
+
+<h3>Outras tecnologias utilizadas:</h3>
+
+- PostgreSQL
+- Spring Security
+
+<!-- ## 💻 Projeto -->
+
+## 📔 Projeto
+
+<h2>Visão do cliente</h2>
+
+
+<h2>Tela de Login</h1>
+<p align="center">
+  <img alt="Página de Login" src="https://i.imgur.com/WixjdDZ.png" width="100%">
+</p>
+
+<h2>Tela de Cadastro</h2>
+
+<p align="center">
+  <figure>
+    <img alt="Tela de Cadastro" src="https://i.imgur.com/VdZm5hT.png" width="100%"/>
+    <figcaption>Ao tentar acessar a tela de Administrador através da URL "/admin", o usuário será redirecionado para uma tela de Login caso não tenha feito o login nenhuma vez anteriormente</figcaption>
+  </figure>
+</p>
+
+<h2>Cadastro de Transação</h2>
+
+<p align="center">
+  <figure>
+    <img alt="Cadastro de Transação" src="https://i.imgur.com/97UdeHe.png" width="100%"/>
+    <figcaption>Ao tentar acessar a tela de Administrador através da URL "/admin", o usuário será redirecionado para uma tela de Login caso não tenha feito o login nenhuma vez anteriormente</figcaption>
+  </figure>
+</p>
+
+## 🔖 Layout
+
+Você pode visualizar o layout base do projeto através [desse link](https://www.figma.com/file/KENaPQfB2l2RZmF0af1lEE/CahsFlow-Plus?type=design&node-id=0%3A1&mode=design&t=Qt9yLc1rNqvx3wDl-1). É necessário ter conta no [Figma](https://figma.com) para acessá-lo.
+
+---
+
+## ⚒️ Executando o Projeto
+
+Execute um dos dois comandos abaixo a depender do seu gerenciador de pacotes.
+
+```bash
+npm install
+npm run start
+# or
+yarn install
+yarn start
+```
+
+Para o funcionamento da aplicação por completo, é necessário executar também a API, que se encontra neste [repositório]([url](https://github.com/limaluan/CashFlow-Plus/tree/master)).
+Com a API clonada, execute este comando na pasta raiz do projeto:
+
+```bash
+mvn spring-boot:run
+```
+
+O Front End será hospedado no domínio [http://localhost:4200](http://localhost:4200).
+
+O Back End será hospedado no domínio [http://localhost:8080](http://localhost:8080).
+
+Feito com ♥ by [Luan Lima](https://github.com/limaluan).
